@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link href="{{ url_for('static', path='/styles.css') }}" rel="stylesheet"> -->
+    <title>SLR Parser - Compiler Design</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark d-flex flex-row justify-content-between" style="background-color: #459C98">
+        <div class="container">
+            <a class="navbar-brand" href="#">SLR Parser</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="container collapse navbar-collapse ml-auto" id="navbarText">
+              <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                <li class="nav-itemt" role="presentation">
+                  <button class="nav-link text-light active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Home</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link text-light" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-parse" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Parse Table</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link text-light" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-parsing" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Parsing</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link text-light" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-flow" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Flow</button>
+                </li>
+              </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="tab-content " id="pills-tabContent">
+            <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+                <form method="post" action="/">
+                    <div class="form-group my-3">
+                        <h4>Enter the grammar:</h4>
+                        <textarea name="grammar" class="form-control" style="height: 400px" aria-label="With textarea">{{grammar}}</textarea>
+                    </div>
+                    <div class="d-flex flex-row justify-content-end">
+                        <button type="submit" class="btn" style="background-color: #459C98; color: white;"> Submit</button>
+                    </div>
+                    {% if success %}
+                        <h5 class="text-success">Parsing Successful</h5>
+                    {% endif %}
+                    {% if error %}
+                        <h5 class="text-danger">Invalid grammar</h5>
+                    {% endif %}
+                </form>
+            </div>
+            <div class="tab-pane fade" id="pills-parse" role="tabpanel" aria-labelledby="pills-profile-tab">
+                <table class="table table-dark my-3">
+                    <thead>
+                      <tr>
+                        <th scope="col">State</th>
+                        {% if symbols %}
+                            {% for symbol in symbols %}
+                                <th scope="col">{{symbol}}</th>
+                            {% endfor %}
+                        {% endif %}
+                        <!-- <th scope="col">#</th>
+                        <th scope="col">First</th>
+                        <th scope="col">Last</th>
+                        <th scope="col">Handle</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {% if closure %}
+                            {% for r in range(closure |length) %}
+                                <tr>
+                                    <th scope="row">{{r}}</th>
+                                    {% for c in symbols %}
+                                        <td>{{table[r][c]}}</td>
+                                    {% endfor %}
+                                    <!-- <td></td>
+                                    <td>Mark</td>
+                                    <td>Otto</td>
+                                    <td>@mdo</td> -->
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="my-3 tab-pane fade" id="pills-parsing" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <table class="table table-dark my-3">
+                    <tbody>
+                        {% if result %}
+                            {% for r in result %}
+                                <tr>
+                                    <!-- <th scope="row">{{r}}</th> -->
+                                    {% for z in r %}
+                                        <td>{{z}}</td>
+                                    {% endfor %}
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="my-3 tab-pane fade" id="pills-flow" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <img src="{{ url_for('static', path='/automata.dot.png') }}" />
+            </div>
+          </div>
+    </div>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+</body>
+</html>
