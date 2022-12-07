@@ -99,12 +99,15 @@ class SLRParser:
 
     def items(self, G_prime):
         C = [self.CLOSURE({G_prime.start: {('.', G_prime.start[:-1])}})]
-
+        symbolList=sorted(G_prime.nonterminals)
+        symbolList.extend(sorted(G_prime.terminals))
+        print(symbolList)
+        
         while True:
             item_len = len(C)
 
             for I in C.copy():
-                for X in G_prime.symbols:
+                for X in symbolList:
                     goto = self.GOTO(I, X)
 
                     if goto and goto not in C:
