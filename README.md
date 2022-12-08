@@ -1,5 +1,10 @@
 # SLR Compiler with FastAPI
 
+### Running website at:
+```
+https://slrcompiler.deta.dev/
+```
+
 ### Create and activate a new venv environment
 ```
 1. python -m venv venv
