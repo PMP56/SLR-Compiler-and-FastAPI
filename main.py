@@ -23,6 +23,7 @@ async def generate_table(request: Request):
     parse_table = None
     parse_table_symbols = None
     parsing_result = None
+    body = None
 
     try:
         grammar = Grammar(raw_grammar)
@@ -32,11 +33,11 @@ async def generate_table(request: Request):
         body = slr_parser.print_LR_parser(results)
         success = True
         error = False
+        slr_parser.generate_automaton()
     except: 
         error = True
         success = False
 
-    slr_parser.generate_automaton()
     return templates.TemplateResponse("index.html", {
         "request": request, 
         "grammar": raw_grammar, 
